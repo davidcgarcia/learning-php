@@ -15,3 +15,13 @@ atributos o métodos no tengan un modificador de acceso definido.
 A continuación (en el directorio learning-php/php_con_clase/visibilidad/public) veremos uun ejemplo de métodos 
 y propiedades públicas donde tendremos un atributo $valor que almacenará un valor aleatorio, y el método generar() 
 que nos permitirá obtener un nuevo valor para un intervalo dado (opcional).
+
+Private 
+
+Otorga el nivel de acceso más restritivo, los atributos o métodos que se definan como privados solo serán accesibles desde
+dentro de la misma clase. Sin embargo, sí podrán ser accedidos mediante otros métodos públicos que accedan a lo privado, 
+previamente definidos dentro de la misma clase. Esta restricción se aplica también a las subclases derivadas: es decir, que 
+no se podrá acceder a los elementos de la super clase o clase padre.
+
+Adaptemos, entonces, el ejemplo anterior (en el archivo learning-php/php_con_clase/visibilidad/private) para que no sea posible 
+acceder al atributo valor directamente.
