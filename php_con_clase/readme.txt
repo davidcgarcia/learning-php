@@ -25,3 +25,45 @@ no se podrá acceder a los elementos de la super clase o clase padre.
 
 Adaptemos, entonces, el ejemplo anterior (en el archivo learning-php/php_con_clase/visibilidad/private) para que no sea posible 
 acceder al atributo valor directamente.
+
+
+AUTOCARGA DE CLASES
+
+Generalmente, todas las clases y subclases de nuestros proyectos son almacenadas en archivos independientes. Esto facilita el 
+trabajo en equipos de desarrollo y el mantenimiento del código. pero supone también una gran cantidad de instrucciones require 
+o include en el código de nuestra aplicación.
+
+Una de las principales características que se sumaron en la versión 5 de PHP fue la función __autoload, que nos permite cargar 
+automáticamente las clases on demand. Esto significa que cuando nuestra aplicación requiera crear objetos o acceder a métodos 
+de nuestras clases, buscará el archivo fuente y lo cargará en forma automática.
+
+Otra ventaja de la autocarga de nuestras clases es la seguridad de que solo se cargarán aquellas clases que sean necesarias y que
+se utilicen. Es muy común que durante la vida de nuestras aplicaciones aquellas sufran modificaciones o actualizaciones, y queden 
+en el código inclusiones de clases en desuso. Incluso para realizar acciones simples cargamos en memoria archivos que no son realmente 
+necesarios.
+
+Si bien a simple vista la autocarga de clases parece ser la solución a todos nuestros problemas, puede volverse un dolor de cabeza 
+sino se utiliza con precaución, dado que en aplicaciones complejas será ejecutada en muchas oportunidades. Por eso, se sugiera que 
+la función __autoload sea lo más simple y liviana posible.
+
+Sugerencia
+
+Pese a que la función __autoload() también puede ser empleada para autocargar clases e interfaces, es preferible utilizar la función 
+spl_autoload_register(). Esto es debido a que es una alternativa más flexibe (posibilitando que se pueda especificar cualquier número 
+de autocargadores en la aplicación, tales como los de las bibliotecas de terceros). Por esta razón, se desaconseja el uso de __autoload(), 
+ya que podría estar obsoleta en el futuro.
+
+Nota:
+
+Antes de 5.3.0, las excepciones lanzadas en la función __autoload() no podían ser capturadas en el bloque catch, resultando en un error fatal. 
+Desde 5.3 en adelante, esto es posible simpre que, si se lanza una excepción personalizada, esté disponible la clase de la excepción 
+personalizada. La función __autoload() podría utilizarse recursivamente para cargar la clase de excepción personalizada. 
+
+Nota:
+
+La autocarga no está disponible si se utiliza PHP en el modo interactivo CLI. 
+
+Nota:
+
+Si el nombre de la clase se utiliza, por ejemplo, en call_user_func(), este puede contener algunos caracteres peligrosos tales 
+como ../. Se recomienda no utilizar la entrada del usuario en tales funciones, o al menos verificar dicha entrada en __autoload(). 
