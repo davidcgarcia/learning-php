@@ -67,3 +67,11 @@ Nota:
 
 Si el nombre de la clase se utiliza, por ejemplo, en call_user_func(), este puede contener algunos caracteres peligrosos tales 
 como ../. Se recomienda no utilizar la entrada del usuario en tales funciones, o al menos verificar dicha entrada en __autoload(). 
+
+CLASES ABSTRACTAS
+
+Las clases abstractas son aquellas que no pueden ser instanciadas, y se utilizan para definir un modelo de jerarquía. Generalmente, 
+sirven de base para otras que luego heredan de la superclase abstracta.
+
+Dentro de este tipo de clases se pueden definir métodos abstractos que no tienen ninguna funcionalidad o implementación, sino 
+que simplemente se definen para que luego las subclases los implementen otorgándoles funcionalidad.
