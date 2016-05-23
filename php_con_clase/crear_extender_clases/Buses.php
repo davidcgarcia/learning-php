@@ -29,7 +29,7 @@ class Buses extends MediosDeTransporte
 	public function __construct($nombre, $descripcion, $patente)
 	{
 		parent::__construct($nombre, $descripcion);
-		$this->patente = $patente; 
+		$this->patente = $patente;
 	}
 
 	/** 
