@@ -82,3 +82,15 @@ El alcance de una variable (scope) determina desde qué contexto del código es 
 tener acceso local o global, según donde se definan. Aquellas definidas en el cuerpo de nuestro script(fuera de la clase o un método) 
 tendrán alcance global, es decir, podrán ser accedidas en cualquier momento de la ejecución. En cambio, aquellas definidas dentro de 
 una función solo podrán ser accedidas dentro de la misma función, y desde allí tampoco se podrá acceder a variables externas a ella. 
+
+# DOCUMENTAR EL CÓDIGO FUENTE (PHP Documentor)
+
+En la mayoría de los proyectos informaticos, es muy común que no se le otorgue la suficiente importancia a este aspecto 
+aduciendo cuestiones de tiempo, fechas de entrega o recursos asignados. La tarea de documentar debe ser una etapa más 
+dentro del plan, estimada en horas de trabajo, y lo más importante: debe tener un reponsable así como luego se debe 
+actualizar y mantener de igual forma, qué se hace con el desarrollo de la aplicación. 
+
+La calidad de nuestra documentación es tan importante como la calidad de nuestro código, y es el primer acercamiento 
+que tendrán los terceros a nuestros desarrollos. Por lo tanto, su primera impresión, y lo que determinará el modo en 
+el que se integren con el código. Esto nos permitirá que nuestra aplicación pueda ser interpretada técnicamente por 
+terceros al momento de realizar modificaciones, mantenimiento del producto o mejoras.
