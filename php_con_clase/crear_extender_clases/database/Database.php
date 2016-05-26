@@ -1,4 +1,12 @@
 <?php
+/** 
+* Este código fuente del ejemplo anterior funcionará correctamente, aunque no 
+* cumplirá con las bases de la POO, especialmente el concepto de herencia.
+* A continuación será modificada esta clase 
+* (en la ruta: learning-php/php_con_clase/crear_extender_clases/database/herencia/database.php) 
+* para obtener una subclase por cada motor de base de datos. En este caso MySQL
+*
+*/
 
 class Database 
 {

@@ -75,3 +75,10 @@ sirven de base para otras que luego heredan de la superclase abstracta.
 
 Dentro de este tipo de clases se pueden definir métodos abstractos que no tienen ninguna funcionalidad o implementación, sino 
 que simplemente se definen para que luego las subclases los implementen otorgándoles funcionalidad.
+
+ALCANCE DE LAS VARIABLES
+
+El alcance de una variable (scope) determina desde qué contexto del código es accesible cada variable creada. Las variables podrán 
+tener acceso local o global, según donde se definan. Aquellas definidas en el cuerpo de nuestro script(fuera de la clase o un método) 
+tendrán alcance global, es decir, podrán ser accedidas en cualquier momento de la ejecución. En cambio, aquellas definidas dentro de 
+una función solo podrán ser accedidas dentro de la misma función, y desde allí tampoco se podrá acceder a variables externas a ella. 
