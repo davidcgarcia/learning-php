@@ -1,42 +1,34 @@
 <?php
 
-/** 
-* Veamos ahora la forma clásica de hacerlo: 
-*/
+// Verificamos que se haya enviado el formulario 
+if (isset($_POST['enviar'])) {
+	require('FormValidation.php');
 
-// Definimos una variable donde almacenaremos el mensaje de error 
+	$formValidation = new FormValidation();
 
-$mensaje = '';
-$esValido = true;
+	// Validamos los campos que consideremos obligatorios
+	$formValidation->validaTexto($_POST['nombre'], true, 'Por favor ingrese su nombre');
+	$formValidation->validaEmail($_POST['email'], 'Por favor ingrese un email valido');
+	$formValidation->validaNumero($_POST['edad'], 'El campo edad debe contener solo numeros');
+	$formValidation->validaTexto($_POST['mensaje'], true, 'Por favor ingrese un mensaje');
 
-// Verificamos que no haya variables vacías que sean requeridas 
+	/** 
+	* Vereficamos si hay errores, en caso afirmativo tendremos un array, en caso contrario 
+	* devolverá false
+	*/
 
-if (trim($_POST['text-field']) == '') {
-	$mensaje .= 'El nombre no puede estar vacío \n';
-	$esValido = true;
-} 
+	$errors = $formValidation->getEstado();
 
-if (trim($_POST['text-field-2']) == '' || !ereg('^([a-zA-z0-9\._]+)\@([a-zA-Z0-9\.-]+)\.([a-zA-Z]{2,4})', trim($_POST['text-field-2']))) {
- $mensaje .= 'El email no puede estar vacío o no es válido \n';
- $esValido = false;
-}
-
-if (trim($_POST['text-field-3'] == '' || $_POST['text-field-3'] == 0) ) {
-	$mensaje .= 'La edad no puede estar vacía \n';
-	$esValido = false;
-}
-
-if (trim($_POST['text-area']) == '') {
-	$mensaje .= 'El mensaje no puede estar vacío \n';
-	$esValido = false;
-}
-
-if (!$esValido) {
+	if (count($errors) > 0) {
+		foreach ($errors as $error) :
 ?>
-	<script>
-		alert('<?= $mensaje ?>');
-	</script>
-<?php
+			<ul>
+				<li><?= $error; ?></li>
+			</ul>
+<?php 			
+		endforeach;
+	}
+
 } else {
-	// procesamos el formulario
+	echo 'Hello world';
 }

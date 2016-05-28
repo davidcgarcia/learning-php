@@ -8,29 +8,29 @@
 	<form id="form1" name="form1" method="post" action="validaciones.php">
 		<label>
 			Nombre 
-			<input type="text" name="text-field" id="text-field">
+			<input type="text" name="nombre" id="nombre">
 		</label>
 		<p>
 			<label>
 				Email 
-				<input type="text" name="text-field-2" id="text-field-2">
+				<input type="text" name="email" id="email">
 			</label>
 		</p>
 		<p>
 			<label>
 			Edad 
-			<input type="text" name="text-field-3" id="text-field-3">
+			<input type="text" name="edad" id="edad">
 			</label>
 		</p>
 		<p>
 			<label>
 				Mensaje 
-				<textarea name="text-area" id="text-area" cols="45" rows="5"></textarea>
+				<textarea name="mensaje" id="mensaje" cols="45" rows="5"></textarea>
 			</label>
 		</p>
 		<p>
 			<label>
-				<input type="submit" name="btn-submit" value="Enviar">
+				<input type="submit" name="enviar" value="Enviar">
 			</label>
 		</p>
 	</form>
