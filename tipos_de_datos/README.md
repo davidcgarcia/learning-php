@@ -24,3 +24,65 @@ el archivo **FormValidation.php**.
 
 **Feat**: Se añaden nuevas funcionalidades: validación de fechas, validación de subida de archivos y validación 
 de cantidad mínima y máxima de caracteres. 
+
+# ARRAYS 
+
+Los `arrays` son uno de los tipos de datos más utilizados en **PHP**, y estan presentes en casí todos los lenguajes 
+de programación de la actualidad. Su uso es imprescindible en cualquier desarrollo. El **PHP** tiene gran cantidad de 
+`arrays` predefinidos como por ejemplo **$_SERVER**, que contiene la información del servidor web sobre la que corre 
+nuestro script; otro `array` de acceso global es **$_COOKIE**, que contiene, como su nombre lo indica, las `cookies` 
+disponibles para el dominio actual.
+
+La sintaxis es muy similar a la utilizada en resto de los tipos de datos, pero con diferencias a la hora de recuperar 
+el valor, puesto que, como almacena múltiples valores, debemos informar en que posición del `array` se encuentra el 
+dato buscado. los `arrays` pueden contener datos de diferentes tipos: `strings`, `enteros`, o `flotantes` entre otros. 
+A modo de repaso, veremos en forma sintética, las generalidades de este tipo de dato. La creación de los arrays puede 
+hacerse utilizando el constructor `array()`. 
+
+```
+<?php 
+		// creamos un array de ciudades 
+		$arrCiudades = [
+			'Cali', 
+			'Medellin', 
+			'Bogota'
+		];
+
+		// Asignamos la posición o el índice manualmente 
+		$arrCiudades = [
+			0 => 'Cali', 
+			1 => 'Medellin', 
+			2 => 'Bogota'
+		];
+```
+
+En el código fuente anterior, podemos ver la creación de dos `arrays`. En un primer caso, dejando que **PHP** asigne 
+los índices por nosotros en forma consecutiva, o bien hacerlo nosotros mismos utilizando el formato `[indice] => [valor]`.
+
+Por convención, el primer elemento de un `array` corresponde siempre al índice cero. Si quisiéramos, recuperar la ciudad 
+que se encuentra en el índice 1 del `array` de ciudades, simplemente haremos: 
+
+```
+	<?php 
+		echo $arrCiudades[1];
+```
+
+En caso de necesitar agregar elementos a nuestro `$arrCiudades`, podemos realizarlo indicando el número de índice; en 
+caso de que la posición ya existe se escribirá sobre el dato. 
+
+```
+	<?php 
+
+		$arrCiudades[3] = 'Bucaramanga';
+```
+
+También tenemos la posibilidad de sumar más elementos al `array` sin indicar el índice, lo que colocará el nuevo dato 
+en nueva posición, al final. 
+
+```
+	<?php 
+		$arrCiudades[] = 'Pereira';
+
+		// o también podemos hacerlo de esta manera: 
+		array_push($arrCiudades, 'Palmira', 'Buga');
+```
