@@ -86,3 +86,50 @@ en nueva posición, al final.
 		// o también podemos hacerlo de esta manera: 
 		array_push($arrCiudades, 'Palmira', 'Buga');
 ```
+
+# ARRAYS ASOCIATIVOS 
+
+En todos los casos anteriores, planteamos `arrays` con índices o claves númericos (estos `arrays` son conocidos como 
+escalares). Podemos también utilizar cadenas de texto, es decir, `strings` como índices, en cuyo caso crearemos `arrays` 
+asociativos.
+
+```
+	<?php 
+
+		$datosPersonales = [
+			'nombre'		=> 'Cristhian', 
+			'apellido'	=> 'García', 
+			'telefono'	=> '7552075',
+			'documento'	=> '11205687' 
+		];
+```
+
+# ARRAYS MULTIDIMENSIONALES 
+
+El último tipo de `array` es el `array` multidimensional o matriz. En este caso, al menos uno de sus elementos será, 
+a su vez, un `array`.
+
+```
+	<?php 
+
+		$telefonos = [
+			'movil'		=> '1552038',
+			'fijo'		=> '3802568', 
+			'oficina'	=> '6652012'
+		];
+
+		$datosPersonales = [
+			'nombre'		=> 'Cristhian', 
+			'apellido'	=> 'García', 
+			'telefonos'	=> $telefonos, 
+			'documento'	=> '11205687'
+		];
+
+```
+
+Para acceder a los elementos de una matriz usaremos la combinación de ambos índices (númericos o asociativos).
+
+``` 
+	<?php 
+		echo $datosPersonales['telefono']['movil'];
+```
