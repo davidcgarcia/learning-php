@@ -133,3 +133,57 @@ Para acceder a los elementos de una matriz usaremos la combinación de ambos ín
 	<?php 
 		echo $datosPersonales['telefono']['movil'];
 ```
+
+# RECUPERANDO TODO EL CONTENIDO 
+
+Si queremos rápidamente y para hacer debug de nuestro `array`, podemos utilizar la función `print_r`, qué nos 
+devolverá todo el contenido en forma legible. Otra alternativa es utilizar `var_dump`, que entregará todo el 
+contenido con información adicional, como el tipo de dato que contiene y su longitud.
+
+```
+	<?php 
+
+		$telefonos = [
+			'movil'		=> '1552038',
+			'fijo'		=> '3802568', 
+			'oficina'	=> '6652012'
+		];
+
+		$datosPersonales = [
+			'nombre'		=> 'Cristhian', 
+			'apellido'	=> 'García', 
+			'telefonos'	=> $telefonos, 
+			'documento'	=> '11205687'
+		];
+
+		// Mostramos el contenido en pantalla 
+		echo '<h1>Utilizamos print_r</h1>';
+		echo '<pre>'; print_r($datosPersonales); echo '</pre>';
+
+		echo '<h1>Utilizamos var_dump</h1>';
+		echo '<pre>'; var_dump($datosPersonales); echo '</pre>';
+```
+
+Otra forma de recuperar todo el contenido es utilizando el bucle `foreach`.
+
+```
+	<?php 
+		// Recuperamos la información sin necesidad de conocer su clave 
+		foreach ($datosPersonales as $val) {
+			echo 'Valor: '. $val . '<br>';
+		}
+
+		echo '<hr>';
+
+		si queremos recuperar el valor del índice 
+
+		foreach ($datosPersonales as $key => $val) {
+			if (is_array($val)) {
+				echo 'clave: ' . $key . 'valor: ' . $val . '<br>';
+			}
+		}
+```
+
+Ahora que hicimos un breve repaso de este tipo de dato, comenzaremos a escribir una clase que nos permita 
+manipular su contenido o estructura en forma dínamica, y reutilizable para tareas comunes como almacenar 
+una lista de países para ser mostradas en un elemento `<select></select>` de un formulario HTML.
