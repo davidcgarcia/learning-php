@@ -10,17 +10,34 @@ class FormValidation
 	private $errors;
 
 	/** 
-	* Validación de textos con espacios o sin ellos 
+	* Validación de textos con espacios o sin ellos, posibilidad de enviar longitud 
+	* mínima y máxima de la cadena de texto.
 	*
 	* @param $text: texto ingresado por el usuario a través del form 
+	* @param $min: longitud mínima de caracteres 
+	* @param $max: longitud máxima de caracteres 
 	* @param $espacios: si es igual a true el texto lleva espacios 
 	* @param $mensaje: si existe algún error este mensaje será asignado al atributo $errors
 	*
 	* @return boolean
 	*/
 
-	public function validaTexto($text, $espacios = true, $mensaje) 
+	public function validaTexto($text, $min = false, $max = false, $espacios = true, $mensaje) 
 	{
+		if (!empty($min)) {
+			if (strlen($text) < $min) {
+				$this->errors[] = $mensaje;
+				return false;
+			}
+		}
+
+		if (!empty($max)) {
+			if (strlen($text) > $max) {
+				$this->errors[] = $mensaje;
+				return false;
+			} 
+		}
+
 		if ($espacios) {
 			$res = preg_match("^[A-Za-z0-9\ ]+$", $text);
 		} else {
@@ -44,14 +61,76 @@ class FormValidation
 	*
 	* @return boolean 
 	*/
-	public function validaNumero($num, $mensaje) 
+	public function validaNumero($num, $min = false, $max = false, $mensaje) 
 	{
 		if (is_numeric($num)) {
-			return true;
+			if ($num < $min || $num > $max) {
+				$this->errors[] = $mensaje;
+				return false;
+			} else {
+				return true;
+			}
 		}
 
 		$this->errors[] = $mensaje;
 		return false;
+	}
+
+	/** 
+	* Validación de fechas 
+	*
+	* @param $fecha
+	* @param $mensaje: si existe algún error este mensaje será asignado al atributo $errors
+	*
+	* @return boolean
+	*/
+	public function validaFecha($fecha, $mensaje)
+	{
+		if (($ts = strtotime($fecha)) === false) {
+			$this->errors[] = $mensaje;
+			return false;
+		}
+
+		return true;
+	}
+
+	/** 
+	* Validación de subida de archivos 
+	*
+	* @param $file: Archivo que se debe validar 
+	* @param $max: Peso máximo del archivo 
+	* @param $min: Peso mínimo del archivo 
+	* @param $exts: Tipo de archivo (png || jpg || jpeg)
+	* @param $mensaje: si existe algún error este mensaje será asignado al atributo $errors
+	*
+	* @return boolean 
+	*/
+	public function validaUpload($file, $max = false, $min = false, $exts, $mensaje)
+	{
+		// Validamos el peso del archivo: en bytes 
+		if ($max) {
+			if ($file['size'] > $max) {
+				$this->errors[] = $mensaje;
+				return false;
+			}
+		}
+
+		/**
+		* Validamos la extensión del archivo 
+		* El parámetro $exts contendrá en un array las extensiones permitidas para 
+		* luego utilizando la función in_array(), verificar si se encuentra habilitada 
+		*
+		*/
+		if (!empty($exts)) {
+			$ext = explode('.', basename(strtolower(trim($file['name']))));
+
+			if (in_array($ext[count($ext) - 1], $exts)) {
+				$this->errors[] = $mensaje;
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	/** 
@@ -62,7 +141,7 @@ class FormValidation
 	*
 	* @return boolean
 	*/
-	public function validaEmail($email, $mensaje) 
+	public function validaEmail($email, $dominio, $mensaje) 
 	{
 		$res = preg_match("^[^@ ]+@[^@ ]+\.[^@\.]+$", trim($email));
 
@@ -116,4 +195,35 @@ class FormValidation
 * 
 * A continuación, en el archivo validaciones.php de este mismo directorio veremos un ejemplo de aplicación 
 * de esta clase.
+*
+* Feat: Se añaden nuevas funcionalidades: validación de fechas, validación de subida de archivos y validación 
+* de cantidad mínima y máxima de caracteres. 
+*
+* De esta manera, nuestra clase posee ahora una mayor funcionalidad y eficencia. 
+* 
+* Encontramos cambios en los métodos cuya implementación podemos verla comentada en el código fuente, 
+* y sumamos dos nuevos métodos: uno, validaFecha cuyo comportamiento consiste en, utilizando la función 
+* strtotime, convertir a formato Unix Timestamp(la cantidad de segundos que transcurrieron desde 01/01/1970 
+* a las 00:00 horas) respecto de la fecha y hora actual.
+*
+* El resultado es evaluado verificando si la respuesta es false, en cuyo caso el string no tenía un formato 
+* de fecha valido o bien pudo devolver un número entero si pudo verificarlo.
+*
+* Existe una curiosidad respecto a la conversión de cadenas a fechas en formato Unix Timestamp, utilizando 
+* utilizando strtotime o en otros lenguajes de programacón mediante otras funciones, ya que esta tiene fecha 
+* de vencimiento: 19 de enero de 2038 a las 03:14:47. Luego de esta fecha, la conversión informará como resul-
+* tados en numeros negativos, generando múltiples cálculos erróneos. 
+*
+* El segundo método nuevo que estudiaremos en el código fuente es validaUpload, destinado a verificar los archivos 
+* que sean enviados desde el formulario. El método permite comprobar el tamaño del archivo contra un tamaño 
+* máximo definido, y que contenga una extensión válida, para lo cual debemos enviar como parámetro un array de 
+* extensiones.
+*
+* El PHP nos informará el tamaño o peso del archivo subido en la componente size del array $_FILES en bytes 
+* (1024 bytes = 1KB). En consecuencia, cualquier comparación debe efectuarse entre la misma unidad de medida. 
+*
+* Notese que al momento de extraer la extensión utilizando explode y basename se aplica al nombre del archivo 
+* strtolower y trim a fin de eliminar los espacios y considerar la cadena en minúscula. En caso de no hacerlo 
+* el archivo imagen.JPG será distinto de imagen.jpg, y deberíamos en el array establecer las extensiones en 
+* minúsculas y en mayúscula(jpg, JPG, png, PNG).
 */

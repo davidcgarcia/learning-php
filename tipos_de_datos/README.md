@@ -20,4 +20,7 @@ modificar cada archivo de validación de cada formulario.
 
 Para optimizarlo creamos entonces una clase que nos permitirá validar los datos de acuerdo con las reglas de negocio 
 de la aplicación, que puede ser reutilizada por otros formularios de éste u otro proyecto. La clase se encuentra en 
-el archivo **FormValidation.php**
+el archivo **FormValidation.php**.
+
+**Feat**: Se añaden nuevas funcionalidades: validación de fechas, validación de subida de archivos y validación 
+de cantidad mínima y máxima de caracteres. 
