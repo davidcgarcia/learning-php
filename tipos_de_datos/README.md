@@ -187,3 +187,5 @@ Otra forma de recuperar todo el contenido es utilizando el bucle `foreach`.
 Ahora que hicimos un breve repaso de este tipo de dato, comenzaremos a escribir una clase que nos permita 
 manipular su contenido o estructura en forma dínamica, y reutilizable para tareas comunes como almacenar 
 una lista de países para ser mostradas en un elemento `<select></select>` de un formulario HTML.
+
+El ejemplo de la clase estará almacenado en la carpeta **arrays** en el archivo **ArrayUtils.php**.
