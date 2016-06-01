@@ -209,7 +209,7 @@ Una forma sencilla de cortar el texto es utilizando la función propia de **PHP*
 		proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 		// Guardamos en una variable los primeros 135 caracteres 
-		$textoLimitado substr($texto, 0, 135);
+		$textoLimitado = substr($texto, 0, 135);
 		echo '<h3>Versión completa</h3>';
 		echo $texto . '...';
 
@@ -238,3 +238,33 @@ solicitada.
 El código fuente del ejemplo funcionaría perfecto, pero que sucedería si lo aplicáramos a una cadena de texto que 
 contenga tags **HTML**, lo que para **PHP** no serían sino caracteres extra, con la diferencia de que se verían con 
 formato cuando el navegador los procesara.
+
+Supongamos que el texto que queremos acortar es el siguiente. 
+
+~~~
+	<div class="container" style="font-size: 14px; color: red">
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. <p> Dolore recusandae commodi itaque ex </p> dolorem nostrum sapiente pariatur totam voluptate inventore quos nemo, eaque rem nisi quis eius voluptates dicta quaerat.
+		</p>	
+	</div>
+~~~
+
+Si aplicamos el método `cortarStrings` a esta nueva cadena de texto el resultado será algo parecido a esto: 
+
+~~~ 
+	<h3>Texto completo</h3>
+		<div class="container" style="font-size: 14px; color: red">
+			<p>
+				<b>Lorem ipsum dolor</b> sit amet, consectetur adipisicing elit. <p> Dolore recusandae commodi itaque ex </p> dolorem nostrum sapiente pariatur totam voluptate inventore quos nemo, eaque rem nisi quis eius voluptates dicta quaerat.
+			</p>	
+		</div>
+	<h3>Texto limitado</h3> 
+	<div class="container" style="font-size: 14px; color: red">
+		<p>
+			<b>Lorem ipsum dolor</b> sit amet, consectetur adipisicing elit. 
+		<p> Dolore recusandae
+~~~
+
+Observamos que aplicando el método `cortarStrings` algunas tags `HTML` quedan sin cerrar, lo cual supone un problema 
+considerable, generando por ejemplo que un vinculo que también abierto `<a>`. Y al no estar cerrado todo lo que se 
+encuentre a partir de este (imágenes, texto o contenedores) lo heredará el vínculo.

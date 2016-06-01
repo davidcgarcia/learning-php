@@ -4,12 +4,11 @@ require_once('StrUtils.php');
 
 $srtUtils = new StrUtils();
 
-$texto = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum';
+$texto = '<div class="container" style="font-size: 14px; color: red">
+		<p>
+			<b>Lorem ipsum dolor</b> sit amet, consectetur adipisicing elit. <p> Dolore recusandae commodi itaque ex </p> dolorem nostrum sapiente pariatur totam voluptate inventore quos nemo, eaque rem nisi quis eius voluptates dicta quaerat.
+		</p>	
+	</div>';
 
 // Limitamos el texto a 135 caracteres 
 $textoLimitado = $srtUtils->cortarStrings($texto, 135);
