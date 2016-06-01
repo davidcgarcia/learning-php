@@ -189,3 +189,52 @@ manipular su contenido o estructura en forma dínamica, y reutilizable para tare
 una lista de países para ser mostradas en un elemento `<select></select>` de un formulario HTML.
 
 El ejemplo de la clase estará almacenado en la carpeta **arrays** en el archivo **ArrayUtils.php**.
+
+# CORTAR CADENAS EN FORMA ESMERADA 
+
+Continuando con el trabajo sobre diferentes tipos de datos, veremos aquí la aplicación sobre cadenas de 
+texto o strings. Puede suceder que necesitemos mostrar una versión reducida de la cadena de texto, por 
+ejemplo, en sitios de noticias que muestran una parte del artículo y donde es necesario acceder al interior 
+de la nota para leerla completa.
+
+Una forma sencilla de cortar el texto es utilizando la función propia de **PHP** `substr` 
+
+~~~php 
+	<?php 
+		$texto = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+		// Guardamos en una variable los primeros 135 caracteres 
+		$textoLimitado substr($texto, 0, 135);
+		echo '<h3>Versión completa</h3>';
+		echo $texto . '...';
+
+		echo '<h3>Versión reducida</h3>'
+		echo $textoLimitado . '...';
+~~~
+
+El incoveniente de hacerlo de esta forma es la falta de esmero, ya que podríamos cortarlo en medio de una 
+palabra o caracteres de puntuación dejando el texto ilegible.
+
+Para realizar esto de manera eficiente veamos el siguiente código **(En la carpeta strings en el archivo StrUtils.php)**.
+
+Al analizar el detalle del código fuente que compone la clase `StrUtils` encontramos el método `cortarStrings()`. 
+Dicho método recorre el texto seperándolo por espacios a través de un bucle `foreach`, generando en cada iteración 
+una variable **$word** con el contenido de esa porción del texto.
+
+Para cada porción del texto se verifica que no esté vacía (evitando así tener en cuenta dobles espacios o tabs), y 
+se suma la longitud de la cadena, utilizando la función `strlen`, a la variable **$total** con el objetivo de 
+verificar que ésta no supere la longitud enviada como segundo parámetro al método. Además, se generó una segunda 
+variable **$final**, donde se concatenan las palabras hasta el momento del corte.
+
+Por último se comprueba que la longitud acumulada en **$total** no haya superado a la longitud dada en **$longitud**, 
+en caso de que esto suceda se da del bucle retornando el valor de **$final**, que contendrá la cadena con la extensión 
+solicitada.
+
+El código fuente del ejemplo funcionaría perfecto, pero que sucedería si lo aplicáramos a una cadena de texto que 
+contenga tags **HTML**, lo que para **PHP** no serían sino caracteres extra, con la diferencia de que se verían con 
+formato cuando el navegador los procesara.
