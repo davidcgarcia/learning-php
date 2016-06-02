@@ -291,4 +291,30 @@ cadena lista para ser evaluada como palíndromo.
 ### PROTEGER CADENAS DE TEXTO
 
 Actualmente casí todos los foros, sitios web, blogs o aplicaciones cuentan con la posibilida de registrarse por 
-parte del usuario
+parte del usuario, almacenando esta información en una base de datos. Generalmente entre estos datos suele 
+encontrarse una contraseña que, lamentablemente los usuarios suelen utilizar no solo en ese sitio, sino también 
+en su cuenta de correo electrónico, acceso al banco por internet o mensajería instantánea.
+
+Toda esta información esta resguardada de visitantes malintencionados, pero puede suceder que algún bug permita 
+el acceso y deje al descubierto estos datos, entre ellos, la constraseña de nuestros usuarios. Por eso, es 
+fundamental prevenirnos manteniendo nuestras aplicaciones actualizadas, si utilizamos software de terceros es 
+importante asegurarnos de contar con la última versión. 
+
+De todas formas, en caso de que la información sea accedida por terceros, debemos tener los datos sensibles 
+ecriptados. Al referirnos a terceros no solo hablamos de alguien que haya hackeado nuestro sitio web, sino de, 
+por ejemplo, los mismos dueños del sitio que no tendrían porque ver la contraseña que el usuario utiliza. 
+
+A la hora de proteger nuestras cadenas de texto o strings se utilizan algoritmos de un solo sentido (one way), es 
+decir, que la información no puede volver a su estado original. Para proteger la información se utilizan actualmente 
+algoritmos de hashing que generan de manera univoca una clave que hace referencia a un documento, archivo, dato, 
+cadena de texto. Entre los más utilizados podemos nombrar **MD5** y **SHA**.
+
+El resultado que se obtiene al comprimir una cadena de texto con una función de hashing se conoce como `HASH`, y 
+siempre tendrá la misma cantidad de caracteres una vez encriptado para cualquier cadena original dada. los `hashes` 
+en **MD5** siempre tendrán una longitud de 32 caracteres por ejemplo.
+
+Entonces, qué sucederá si almaceno el __password__ de mis usuarios `hasheado`, ¿cómo podré luego certificar que 
+el dato que ingresan es el mismo que tengo almacenado? (ciertamente, los usuarios no lo ingresaron encriptado al 
+acceder al sitio). Lo que podemos hacer es comparar la clave almacenada en nuestra base de datos con el dato 
+ingresado por el usuario, que será protegido mediante el mismo algoritmo usado al momento de almacenar la información 
+en la base de datos. Si ambos `hashes` son iguales quiere decir que provienen del mismo `string`.
