@@ -1,4 +1,4 @@
-# VALIDACIÓN DE DATOS SERVER-SIDE
+### VALIDACIÓN DE DATOS SERVER-SIDE
 
 Actualmente, la mayoría de aplicaciones o sitios web reciben gran cantidad de información por parte del usuario: 
 personal, para registrarlo en nuestra base de datos, direcciones de e-mail para el envío de un newsletter, o bien
@@ -25,7 +25,7 @@ el archivo **FormValidation.php**.
 **Feat**: Se añaden nuevas funcionalidades: validación de fechas, validación de subida de archivos y validación 
 de cantidad mínima y máxima de caracteres. 
 
-# ARRAYS 
+### ARRAYS 
 
 Los `arrays` son uno de los tipos de datos más utilizados en **PHP**, y estan presentes en casí todos los lenguajes 
 de programación de la actualidad. Su uso es imprescindible en cualquier desarrollo. El **PHP** tiene gran cantidad de 
@@ -87,7 +87,7 @@ en nueva posición, al final.
 		array_push($arrCiudades, 'Palmira', 'Buga');
 ```
 
-# ARRAYS ASOCIATIVOS 
+### ARRAYS ASOCIATIVOS 
 
 En todos los casos anteriores, planteamos `arrays` con índices o claves númericos (estos `arrays` son conocidos como 
 escalares). Podemos también utilizar cadenas de texto, es decir, `strings` como índices, en cuyo caso crearemos `arrays` 
@@ -104,7 +104,7 @@ asociativos.
 		];
 ```
 
-# ARRAYS MULTIDIMENSIONALES 
+### ARRAYS MULTIDIMENSIONALES 
 
 El último tipo de `array` es el `array` multidimensional o matriz. En este caso, al menos uno de sus elementos será, 
 a su vez, un `array`.
@@ -134,7 +134,7 @@ Para acceder a los elementos de una matriz usaremos la combinación de ambos ín
 		echo $datosPersonales['telefono']['movil'];
 ```
 
-# RECUPERANDO TODO EL CONTENIDO 
+### RECUPERANDO TODO EL CONTENIDO 
 
 Si queremos rápidamente y para hacer debug de nuestro `array`, podemos utilizar la función `print_r`, qué nos 
 devolverá todo el contenido en forma legible. Otra alternativa es utilizar `var_dump`, que entregará todo el 
@@ -190,7 +190,7 @@ una lista de países para ser mostradas en un elemento `<select></select>` de un
 
 El ejemplo de la clase estará almacenado en la carpeta **arrays** en el archivo **ArrayUtils.php**.
 
-# CORTAR CADENAS EN FORMA ESMERADA 
+### CORTAR CADENAS EN FORMA ESMERADA 
 
 Continuando con el trabajo sobre diferentes tipos de datos, veremos aquí la aplicación sobre cadenas de 
 texto o strings. Puede suceder que necesitemos mostrar una versión reducida de la cadena de texto, por 
@@ -268,3 +268,27 @@ Si aplicamos el método `cortarStrings` a esta nueva cadena de texto el resultad
 Observamos que aplicando el método `cortarStrings` algunas tags `HTML` quedan sin cerrar, lo cual supone un problema 
 considerable, generando por ejemplo que un vinculo que también abierto `<a>`. Y al no estar cerrado todo lo que se 
 encuentre a partir de este (imágenes, texto o contenedores) lo heredará el vínculo.
+
+### PALÍDROMOS 
+
+Un palíndromo es una frase, palabra o número que se lee igual de adelante hacia atrás o viceversa. También son 
+conocidos como capicúas. Algunos ejemplos. 
+
+Neuquén, La ruta natural, No lo cases a Colon, 78787, 07570.
+
+Si ejecutamos el código del método es palíndromo podemos observar que hay algún inconveniente con algunos 
+elementos que poseen caracteres especiales o tildes.
+
+Al mommento de evaluar las cadenas para verificar si son idénticas, es decir, si poseen los mismos caracteres en 
+ambos sentidos, tenemos que limpiarlas previamente de caracteres especiales, signos de puntuación y espacios. 
+También es necesario evaluar la cadena en minúsculas o en mayúsculas, ya que "A", por ejemplo, no es lo mismo que 
+el caracter "a".
+
+Para solucionar el incoveniente nombrado anteriormente entonces crearemos el método limpiar cadenas, con acceso 
+privado que eliminará tags HTML, espacios, signos de puntuación, tildes y caracteres especiales, dejando a la 
+cadena lista para ser evaluada como palíndromo.
+
+### PROTEGER CADENAS DE TEXTO
+
+Actualmente casí todos los foros, sitios web, blogs o aplicaciones cuentan con la posibilida de registrarse por 
+parte del usuario

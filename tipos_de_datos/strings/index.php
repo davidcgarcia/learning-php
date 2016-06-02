@@ -17,3 +17,25 @@ echo $texto;
 
 echo '<h3>Texto limitado</h3>';
 echo $textoLimitado;
+
+echo '<h3>Palíndromos</h3>';
+
+// Definimos algunos elementos de prueba
+$palindromos = [
+	'Neuquén', 
+	'07570', 
+	'oso', 
+	'radar', 
+	'palindromo', 
+	'zorro', 
+	7
+];
+
+for ($i = 0; $i < count($palindromos); $i++) {
+	if ($srtUtils->esPalindromo($palindromos[$i])) {
+		echo '<h5>' .$palindromos[$i] . ' Es palíndromo</h5>';
+	} else {
+		echo '<h5>' .$palindromos[$i] . ' No es palíndromo</h5>';
+	}
+
+}

@@ -2,7 +2,15 @@
 
 class StrUtils 
 {
-	// Cortando cadenas de manera esmerada y organizada 
+	/**
+	* Cortando cadenas de manera esmerada y organizada 
+	*
+	* @param $text: texto que será acortado
+	* @param $longitud: cantidad de caracteres en donde se cortará el string 
+	* @param $html: [opcional]
+	*
+	* @return string
+	*/
 	public function cortarStrings($text, $longitud, $html = false) 
 	{
 		$final = '';
@@ -44,4 +52,62 @@ class StrUtils
 		return $final;
 	}
 	
+	/** 
+	* Indica si una cadena de texto o número es palídromo 
+	* 
+	* @param $str
+	*
+	* @return boolean
+	*/
+	public function esPalindromo($str) 
+	{
+		// Casteamos a string el parámetro enviado 
+		(string)$str;
+
+		if (strlen($str) == 1) {
+			return true;
+		} else {
+			// Limpiamos la cadena antes de ser evaluada
+			$str = $this->limpiarCadena($str);
+			
+			// Verificamos si es igual en ambos sentidos 
+			if (strrev($str) == $str) {
+				return true;
+			}
+
+			return false;
+		}
+	}
+
+	/** 
+	* Elimina caracteres especiales de la cadena de texto 
+	*
+	* @param $str
+	*
+	* @return string
+	*/
+	public function limpiarCadena()
+	{
+		// Tags HTML 
+		$str = strip_tags($str);
+
+		// Espacios
+		$str = str_replace('', '', strtolower($str));
+
+		// Acentos
+		$p = ['/á/', '/é/', '/í/', '/ó/', '/ú/'];
+		$r = ['a', 'e', 'i', 'o', 'u',];
+		$str = preg_replace($p, $r, $str);
+
+		// Acentos HTML
+		$p = ['/&aacute;/', '/&eacute;/', '/&oacute;/', '/&uacute;/', ];
+		$r = ['a', 'e', 'i', 'o', 'u',];
+		$str = preg_replace($p, $r, $str);
+
+		// Signos de puntuación 
+		$str = preg_replace('/%&.+?;/', '', $str);
+		$str = str_replace(',', '', $str);
+
+		return $str;
+	}
 }
