@@ -318,3 +318,14 @@ el dato que ingresan es el mismo que tengo almacenado? (ciertamente, los usuario
 acceder al sitio). Lo que podemos hacer es comparar la clave almacenada en nuestra base de datos con el dato 
 ingresado por el usuario, que será protegido mediante el mismo algoritmo usado al momento de almacenar la información 
 en la base de datos. Si ambos `hashes` son iguales quiere decir que provienen del mismo `string`.
+
+~~~
+<?php 
+	// Encriptamos el password del usuario 
+	$crypt = md5($_POST['password']);
+
+	// Generamos la consulta SQL 
+	$sql = "INSERT INTO usuarios (usuario, password) VALUES ('".$_POST['usuario']."', '".$crypt."')";
+
+	// Ejecutamos la consulta SQL ...
+~~~
