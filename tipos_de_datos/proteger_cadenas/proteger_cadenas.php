@@ -1,6 +1,18 @@
 <?php
 
+require_once("../strings/StrUtils.php");
 // Encriptamos la contraseña proporcionada por el usuario 
 $crypt = md5($_POST['password']);
 echo $crypt.'<br>';
-echo '<h3>Lista de hashes</h3><pre>'; print_r(hash_algos()); echo '</pre>';
+
+$utils = new StrUtils();
+
+$pass = '123456';
+$arrAlgoritmos = hash_algos();
+
+echo "Cadena Original ". $pass . "<br>";
+
+for ($i = 0; $i < count($arrAlgoritmos); $i++) {
+	echo 'Cadena <b>'. $arrAlgoritmos[$i] . "</b>: ". $utils->encriptarString($pass, $arrAlgoritmos[$i]) . "<br>";
+
+}

@@ -110,4 +110,14 @@ class StrUtils
 
 		return $str;
 	}
+
+	public function encriptarString($str, $modo = 'md5') 
+	{
+		if (in_array($modo, hash_algos())) {
+			$out = hash($modo, $str);
+			return $out;
+		} 
+
+		return "Error algoritmo no procesado";
+	}
 }
