@@ -329,3 +329,28 @@ en la base de datos. Si ambos `hashes` son iguales quiere decir que provienen de
 
 	// Ejecutamos la consulta SQL ...
 ~~~
+
+Como expresamos anteriormente, MD5 es un algoritmo de sentido único, por lo que si la contraseña ingresada es 
+123456 su HASH será siempre **e10adc3949ba59abbe56e057f20f883e**.
+
+Existen muchas más alternativas que se pueden utilizar en **PHP**, la lista completa podemos verla imprimiendo 
+el resultado de la función `hash_algos()`, que nos devolverá un array con la lista de algoritmos en nuestro 
+sistema.
+
+El inconveniente con las funciones de `hasheo` para la protección de contraseñas se proudce porque, aunque el 
+resultado no sea reversible, no indica que mediante procesos específicos no pueda obtenerse la cadena original. 
+
+Si el `string` inicial era simplemente alfanumerico y de hasta seis caracteres de longitud (lo que utiliza la 
+mayoría de los usuarios como contraseña) no será difícil recuperarlo utilizando una técnica de fuerza bruta 
+consistente, en líneas generales, en probar combinaciones hasta encontrar la cadena original completa. También 
+existen cientos de sitios web que recopilan `hashes` en lugares conocidos como `rainbow tables`. Podríamos, 
+por ejemplo, colocar el `hash` buscando en google para encontrar su origen en minutos. 
+
+Para evitar esta situación, lo ideal es desarrollar políticas para la generación de contraseñas, no permitiendo 
+que se utilice el mismo dato que se coloco como apellido o la fecha de nacimiento, forzando el uso de contraseñas 
+de más de ocho caracteres. 
+
+Del lado de la programación, produciremos un método para encriptar contraseñas y brindarles mayor seguridad. En 
+primer lugar, haremos que nuestro método nos permita elegir el algoritmo de entre los disponibles dentro de 
+nuesto sistema. También, podemos utilizar `SHA1`, que tiene una compresión en 160 bits en lugar de 128 como 
+`MD5`. Esto lo hace algo más seguro, aunque logicamente ocupará más lugar, 40 caracteres en lugar de 32.
