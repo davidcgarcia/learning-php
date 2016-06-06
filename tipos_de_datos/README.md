@@ -418,3 +418,63 @@ por el usuario, sino también la cadena generada en forma aleatoria. Luego devol
 
 De esta forma obtendremos distintos `hash` para la misma cadena, dado que la encriptación no se genera sobre el dato 
 del usuario, sino sobre ese dato y una cadena aleatoria adicional.
+
+Para finalizar, generaremos un nuevo método para separar esta cadena y poder validar los datos que el usuario ingresa 
+en el momento de hacer login.
+
+~~~ 
+	public function deHash($str)
+	{
+		$arrHash['longitud'] = substr($str, 0, 1);
+		$arrHash['hash'] = substr($str, 1, strlen($str) - ($arrHash['longitud']+1));
+		$arrHash['salt'] = str_replace($arrHash['hash'], '', substr($str, 1));
+
+		return $arrHash;
+	}
+~~~
+
+El método `deHash` recibe como parametro el hash completo, incluyendo la longitud y la cadena aleatoria que se 
+utilizo al momento de la generación.
+
+Basándonos en el primer caracter que previamente acordamos, guardaríamos la longitud extra de la cadena aleatoria. 
+Los datos resultantes deberemos concatenarlos al inicio del dato dato que el usuario ha ingresado, para evaluarlo 
+y contrastarlo contra el dato almacenado en la base de datos.
+
+~~~
+	$utils = new StrUtils();
+
+	// Simulamos el hash almacenado en la base de datos 
+	$hash = '59a8b70542b74ae46288d6f9a6d162a9691695a7076074';
+
+	// simulamos el ingreso del password ingresado por el usuario 
+	$pass = '123456';
+
+	echo 'Hash almacenado en la base de datos: ' . $hash . '<br>';
+
+	echo 'Resultado del ánalisis del hash: <br> <pre>';
+	$arrHash = $utils->deHash($hash);
+	print_r($arrHash);
+	echo '</pre>';
+
+	// Cadena a evaluar SALT + PASSWORD
+	$evaluar = $arrHash['salt'] . $pass;
+
+	// Concatenamos la longitud con el resultado de hashear el str con su salt y 
+	// luego el salt al final
+
+	$resultado = $arrHash['longitud'] . hash('sha1', $evaluar) . $arrHash['salt'];
+	echo '<b>' . $resultado . ' - ' . $hash . '</b><br>';
+	if ($resultado == $hash) {
+		echo "El password es válido";
+	} else {
+		echo "El password no es válido";
+	}
+~~~
+
+El código fuente de la aplicación de nuestro nuevo método simula el ingreso de una contraseña por el usuario 
+y el valor almacenado en la base de datos, el cual es analizado para extraer sus atributos: longitud y `salt` 
+para poder validar al usuario.
+
+Ahora sí contamos con un método mucho más seguro y robusto donde, aunque dos usuarios tuvieran el mismo `password` 
+es muy baja la posibilidad de que tengan el mismo `hash` generado. Podemos variar la longitud en la clase al 
+momento de generar las cadenas `hasheadas`. Esto también asegura mayor cantidad de elementos únicos.

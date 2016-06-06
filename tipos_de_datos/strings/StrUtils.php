@@ -159,4 +159,13 @@ class StrUtils
 		return "error, algoritmo no soportado";
 	}
 
+	public function deHash($str)
+	{
+		$arrHash['longitud'] = substr($str, 0, 1);
+		$arrHash['hash'] = substr($str, 1, strlen($str) - ($arrHash['longitud']+1));
+		$arrHash['salt'] = str_replace($arrHash['hash'], '', substr($str, 1));
+
+		return $arrHash;
+	}
+
 }
