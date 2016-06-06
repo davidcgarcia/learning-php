@@ -369,3 +369,52 @@ ejemplo, podríamos generar un `salt` aleatorio de 5 caracteres y colocarlo al i
 de manera que luego separando el texto almacenado, podremos saber qué cadena aleatoria se ha utilizado en la 
 encriptación. No hay que olvidar dimensionar el campo de la base de datos para que quepa toda la información, dado 
 que ahora no solo almacenaremos el `hash`.
+
+~~~
+	private $longitudSalt = 5;
+
+	public function encodeString($str, $modo = 'md5')
+	{
+		// Generamos el salt aleatorio con la longitud definida
+		$salt = substr(uniqid(rand(), true), 0, $this->longitudSalt);
+
+		if (in_array($modo, hash_algos())) {
+
+			//Generamos el hash del password junto al salt
+			$out = hash($modo, $salt.$str);
+
+			return $this->longitudSalt.$out.$salt;
+		}
+
+		return "error, algoritmo no soportado";
+	}
+~~~
+
+En primer lugar, definimos un atributo privado con la longitud del `salt` a generar. Luego, debemos crear la cadena 
+aleatoria que guardaremos en la variable `$salt`, lo haremos utilizando `uniqid` y tomando solo los caracteres definidos 
+en `$longitudSalt`.
+
+El resto es similar al funcionamiento anterior con la diferencia que ahora la cadena a encriptar no es solo el dato dado 
+por el usuario, sino también la cadena generada en forma aleatoria. Luego devolvemos una cadena que contendrá: longitud + 
+**HASH** + cadena aleatoria. Finalmente, la almacenaremos en la base de datos.
+
+~~~
+	$utils = new StrUtils();
+
+	$pass = '123456';
+	echo 'Cadena original'. $pass . '<br>';
+	echo 'Cadena <b> SHA1 </b>: '. $utils->encodeString($pass, 'sha1') . '<br>';
+
+	echo '<hr>';
+
+	echo 'Cadena original'. $pass . '<br>';
+	echo 'Cadena <b> SHA1 </b>: '. $utils->encodeString($pass, 'sha1') . '<br>';
+		
+	echo '<hr>';
+
+	echo 'Cadena original'. $pass . '<br>';
+	echo 'Cadena <b> SHA1 </b>: '. $utils->encodeString($pass, 'sha1') . '<br>';
+~~
+
+De esta forma obtendremos distintos `hash` para la misma cadena, dado que la encriptación no se genera sobre el dato 
+del usuario, sino sobre ese dato y una cadena aleatoria adicional.
