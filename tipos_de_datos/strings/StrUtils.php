@@ -2,6 +2,14 @@
 
 class StrUtils 
 {
+
+	/** 
+	* Longitud del string aleatorio 
+	* 
+	* @var $longitudString;
+	*/
+	private $longitudString = 5;
+
 	/**
 	* Cortando cadenas de manera esmerada y organizada 
 	*
@@ -111,6 +119,14 @@ class StrUtils
 		return $str;
 	}
 
+	/** 
+	* Genera todos los algoritmos de encriptación a partir de una cadena dada 
+	* 
+	* @param $str: cadena dada para generar algoritmos de encriptación
+	* @param $modo: por defecto md5; modo de algoritmo de encriptación
+	*
+	* @return string
+	*/
 	public function encriptarString($str, $modo = 'md5') 
 	{
 		if (in_array($modo, hash_algos())) {
@@ -120,4 +136,27 @@ class StrUtils
 
 		return "Error algoritmo no procesado";
 	}
+
+	/** 
+	* Genera un string aleatorio incluyendo la longitud de salt
+	*
+	* @param $str: cadena dada para generar algoritmos de encriptación
+	* @param $modo: por defecto md5; modo de algoritmo de encriptación
+	*
+	* @return string
+	*/
+	public function encodeString($str, $modo = 'md5')
+	{
+		// Generamos el salt aleatorio con la longitud definida por la variable $longitudSalt
+		$salt = substr(uniqid(rand(), true), 0, $this->longitudString);
+
+		if (in_array($modo, hash_algos())) {
+			// Generamos el hash del password junto al salt
+			$out = hash($modo, $salt.$str);
+			return $this->longitudString.$out.$salt;
+		}
+
+		return "error, algoritmo no soportado";
+	}
+
 }

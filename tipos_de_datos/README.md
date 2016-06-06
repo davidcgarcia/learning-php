@@ -354,3 +354,18 @@ Del lado de la programación, produciremos un método para encriptar contraseña
 primer lugar, haremos que nuestro método nos permita elegir el algoritmo de entre los disponibles dentro de 
 nuesto sistema. También, podemos utilizar `SHA1`, que tiene una compresión en 160 bits en lugar de 128 como 
 `MD5`. Esto lo hace algo más seguro, aunque logicamente ocupará más lugar, 40 caracteres en lugar de 32.
+
+Pero esto no es suficiente para que nuestra información este realmente segura. ya que mediante el uso de una 
+técnica conocida como fuerza bruta (brute force) se podría recuperar el contenido original de la cadena probando 
+palabras de uno o más diccionarios, combinaciones alfanuméricas, entre otros.
+
+Para superar esta debilidad, aplicaremos una pequeña modificación en nuestro método. Antes de la generación del 
+`hash`, obtendremos una cadena de texto predeterminada y aleatoria, generalmente de longitud corta, conocida como 
+`salt`. Obviamente deberemos tener también almacenado el `salt` que hayamos usuado para la encriptación, sino no 
+podremos verificar si el dato ingresado en el futuro por el usuario es válido.
+
+De todos modos, esto no debería ser un problema, porque como vimos el `hash` siempre tiene la misma longitud. Por 
+ejemplo, podríamos generar un `salt` aleatorio de 5 caracteres y colocarlo al inicio o al final del dato guardado, 
+de manera que luego separando el texto almacenado, podremos saber qué cadena aleatoria se ha utilizado en la 
+encriptación. No hay que olvidar dimensionar el campo de la base de datos para que quepa toda la información, dado 
+que ahora no solo almacenaremos el `hash`.

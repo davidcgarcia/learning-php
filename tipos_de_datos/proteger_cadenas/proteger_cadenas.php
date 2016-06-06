@@ -13,6 +13,5 @@ $arrAlgoritmos = hash_algos();
 echo "Cadena Original ". $pass . "<br>";
 
 for ($i = 0; $i < count($arrAlgoritmos); $i++) {
-	echo 'Cadena <b>'. $arrAlgoritmos[$i] . "</b>: ". $utils->encriptarString($pass, $arrAlgoritmos[$i]) . "<br>";
-
+	echo 'Cadena <b>'. $arrAlgoritmos[$i] . "</b>: ". $utils->encodeString($pass, $arrAlgoritmos[$i]) . "<br>";
 }
